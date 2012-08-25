@@ -32,7 +32,7 @@ package
 			_follow = new Text("Following: 999999", 2, 2);
 			var o:Object = new Object;
 			o.align = "right";
-			_need = new Text("Need: 999", FP.width - 86, 2, o);
+			_need = new Text("Need: 1000", FP.width - 94, 2, o);
 			o.align = "center";
 			_evolve = new Text("We evolve..", FP.halfWidth - 48, 48, o);
 			_evolve.visible = false;
