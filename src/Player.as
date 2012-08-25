@@ -16,7 +16,6 @@ package
 			type = "player";
 			
 			Global.camera.setFollow(this);
-			trace(x, y);
 		}
 		
 		override public function update():void
