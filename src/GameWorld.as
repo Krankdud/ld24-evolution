@@ -5,26 +5,23 @@ package
 
 	public class GameWorld extends World
 	{
-		private var _camera:Camera;
-		private var _player:Player;
+		private var _level:Level;
 		
 		public function GameWorld() 
 		{
 			super();
-			
-			_camera = new Camera();
-			_player = new Player(128, 32);
-			_camera.setFollow(_player);
-			
-			add(_player);
-			addMask(new Hitbox(64, 64), "solid", 16, 16);
+		}
+		
+		override public function begin():void
+		{
+			_level = new Level();
 		}
 		
 		override public function update():void
 		{
 			super.update();
 			
-			_camera.update();
+			Global.camera.update();
 		}
 		
 	}

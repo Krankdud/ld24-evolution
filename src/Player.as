@@ -14,6 +14,9 @@ package
 			setHitbox(16, 16);
 			
 			type = "player";
+			
+			Global.camera.setFollow(this);
+			trace(x, y);
 		}
 		
 		override public function update():void

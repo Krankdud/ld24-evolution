@@ -19,13 +19,18 @@ package
 				}
 			}
 			
-			createSector(FP.random * 20, FP.random * 20)
+			var x:int = FP.random * 20;
+			var y:int = FP.random * 20;
+			createSector(x, y)
+			FP.world.add(new Player(x * SECTOR_SIZE + SECTOR_SIZE * 0.5, y * SECTOR_SIZE + SECTOR_SIZE * 0.5));
 		}
 		
-		private function createSector(x:int, y:int)
+		private function createSector(x:int, y:int):void
 		{
 			if (x < 0 || x >= 20 || y < 0 || y >= 20)
 				return;
+				
+			FP.world.add(new Sector(x * SECTOR_SIZE, y * SECTOR_SIZE));
 		}
 		
 	}
