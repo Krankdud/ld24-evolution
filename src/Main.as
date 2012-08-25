@@ -10,7 +10,7 @@ package
 		{
 			super(320, 240, 60, true);
 			FP.screen.scale = 2;
-			FP.world = new SecondWorld();
+			FP.world = new ThirdWorld();
 		}
 		
 	}
