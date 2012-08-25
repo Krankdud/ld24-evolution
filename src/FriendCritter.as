@@ -11,7 +11,7 @@ package
 		private const MOVE_TIME:int = 80;
 		private const SPEED:int = 3;
 		
-		private var _dropState:Boolean;
+		private var _state:int;
 		private var _dropSinePos:int;
 		private var _dropTimer:int
 		
@@ -24,7 +24,7 @@ package
 			super(0, 0, Image.createRect(8, 8, 0x00FF00));
 			setHitbox(8, 7);
 			
-			layer = 100;
+			layer = 5;
 			
 			type = "friend";
 		}
@@ -34,7 +34,9 @@ package
 			x = 10 + FP.random * (FP.width - 20);
 			y = -12;
 			
-			_dropState = true;
+			collideWithSolids = true;
+			
+			_state = 0;
 			_dropSinePos = FP.random * SINE.length;
 			_dropTimer = DROP_TIME;
 			
@@ -44,7 +46,7 @@ package
 		
 		override public function update():void
 		{
-			if (_dropState)
+			if (_state == 0)
 			{
 				if (_dropTimer <= 0)
 				{
@@ -58,10 +60,10 @@ package
 				if (collide("solid", x, y + speed.y))
 				{
 					speed.x = 0;
-					_dropState = false;
+					_state = 1;
 				}
 			}
-			else
+			else if (_state == 1)
 			{
 				if (!_follow)
 				{
@@ -98,6 +100,23 @@ package
 					_follow = true;
 					Global.friendsFollowing++;
 				}
+				
+				if ((Global.player as PlayerCritter).hit && _follow)
+				{
+					_follow = false;
+					Global.friendsFollowing--;
+					collideWithSolids = false;
+					_state = 2;
+					speed.x = -4 + FP.random * 8;
+					speed.y = -4;
+				}
+			}
+			else if (_state == 2)
+			{
+				speed.y += 0.6;
+				
+				if (y > FP.height)
+					FP.world.recycle(this);
 			}
 			
 			var e:Entity = FP.world.create(ParticleTrail);

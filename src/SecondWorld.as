@@ -8,7 +8,8 @@ package
 
 	public class SecondWorld extends World
 	{
-		private var _timer:int
+		private var _timer:int;
+		private var _giantTimer:int;
 		
 		public function SecondWorld() 
 		{
@@ -30,18 +31,33 @@ package
 			addMask(new Hitbox(FP.width, 64), "solid", 0, FP.height - 64);
 			
 			_timer = 60;
+			_giantTimer = 1000;
 		}
 		
 		override public function update():void
 		{
 			if (_timer <= 0)
 			{
-				FP.world.create(FriendCritter);
-				_timer = 100;
+				if (FP.random < 0.5)
+					create(EnemyCritter);
+				else
+					create(FriendCritter);
+				_timer = 110;
 			}
 			else
 				_timer--;
+				
+			if (_giantTimer <= 0)
+			{
+				create(EnemyGiantCritter);
+				_giantTimer = 1200;
+			}
+			else
+				_giantTimer--;
 			
+			if (Global.friendsFollowing >= Global.goalFollowing)
+				FP.world = new ThirdWorld();
+				
 			super.update();
 		}
 		
