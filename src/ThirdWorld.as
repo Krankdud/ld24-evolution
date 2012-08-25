@@ -25,7 +25,7 @@ package
 			Global.hud.setKey(Key.LEFT);
 			
 			Global.friendsFollowing = 0;
-			Global.goalFollowing = 5;
+			Global.goalFollowing = 20;
 			
 			add(Global.player);
 			add(Global.hud);

@@ -27,7 +27,7 @@ package
 			Global.hud.setKey(Key.RIGHT);
 			
 			Global.friendsFollowing = 0;
-			Global.goalFollowing = 5;
+			Global.goalFollowing = 20;
 			
 			Global.player = new PlayerCritter(FP.halfWidth, FP.halfHeight);
 			addGraphic(Image.createRect(FP.width, 64), 100, 0, FP.height - 64);

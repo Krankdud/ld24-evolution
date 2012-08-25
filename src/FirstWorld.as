@@ -12,7 +12,7 @@ package
 		{
 			super();
 			
-			Global.goalFollowing = 5;
+			Global.goalFollowing = 20;
 			Global.end = false;
 			Global.endTimer = Global.END_TIME;
 			

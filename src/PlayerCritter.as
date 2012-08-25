@@ -93,7 +93,7 @@ package
 			else
 			{
 				visible = true;
-				FP.angleXY(speed, FP.angle(x, y, FP.halfWidth, FP.halfHeight), 2);
+				FP.angleXY(speed, FP.angle(x, y, FP.halfWidth, FP.halfHeight), 1);
 				
 				if (Global.endTimer <= 120)
 					(graphic as Image).scale += 1;

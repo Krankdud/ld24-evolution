@@ -30,8 +30,6 @@ package
 		
 		override public function update():void
 		{
-			hit = false;
-			
 			if (Input.check(Key.RIGHT) && !Global.end)
 			{
 				speed.x += ACCELERATION;

@@ -8,7 +8,7 @@ package
 
 	public class BaseEntity extends Entity
 	{
-		protected var speed:Point;
+		public var speed:Point;
 		protected var collideWithSolids:Boolean = true;
 		
 		public function BaseEntity(x:int = 0, y:int = 0, graphic:Graphic = null, mask:Mask = null) 
