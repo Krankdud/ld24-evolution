@@ -9,6 +9,7 @@ package
 	public class BaseEntity extends Entity
 	{
 		protected var speed:Point;
+		protected var collideWithSolids:Boolean = true;
 		
 		public function BaseEntity(x:int = 0, y:int = 0, graphic:Graphic = null, mask:Mask = null) 
 		{
@@ -21,7 +22,7 @@ package
 		{
 			if (speed.x != 0)
 			{
-				if (collide("solid", x + speed.x, y))
+				if (collide("solid", x + speed.x, y) && collideWithSolids)
 				{
 					for (var i:int = 0; i < Math.abs(speed.x); i++)
 					{
@@ -40,7 +41,7 @@ package
 			
 			if (speed.y != 0)
 			{
-				if (collide("solid", x, y + speed.y))
+				if (collide("solid", x, y + speed.y) && collideWithSolids)
 				{
 					for (i = 0; i < Math.abs(speed.y); i++)
 					{
