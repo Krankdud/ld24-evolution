@@ -1,0 +1,17 @@
+package  
+{
+
+	public class Resources 
+	{
+{for gfx in files1}
+		[Embed(source = "data/graphics/${gfx.Name}")] static public const IMG_${baseNameUpperCase(gfx)}:Class;
+{/for}
+		
+		public function Resources() 
+		{
+			
+		}
+		
+	}
+
+}

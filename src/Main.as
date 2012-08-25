@@ -8,7 +8,9 @@ package
 		
 		public function Main()
 		{
-			
+			super(320, 240, 60, true);
+			FP.screen.scale = 2;
+			FP.world = new GameWorld();
 		}
 		
 	}
