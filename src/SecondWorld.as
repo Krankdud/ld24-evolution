@@ -15,14 +15,19 @@ package
 		{
 			super();
 			
+			Global.end = false;
+			Global.endTimer = Global.END_TIME;
+			
 			Global.camera.setFollow(null);
 			Global.camera.x = 0;
 			Global.camera.y = 0;
 			
+			Global.hud = new Hud();
 			Global.hud.setKey(Key.LEFT);
+			Global.hud.setKey(Key.RIGHT);
 			
 			Global.friendsFollowing = 0;
-			Global.goalFollowing = 20;
+			Global.goalFollowing = 5;
 			
 			Global.player = new PlayerCritter(FP.halfWidth, FP.halfHeight);
 			addGraphic(Image.createRect(FP.width, 64), 100, 0, FP.height - 64);
@@ -36,27 +41,38 @@ package
 		
 		override public function update():void
 		{
-			if (_timer <= 0)
+			if (!Global.end)
 			{
-				if (FP.random < 0.5)
-					create(EnemyCritter);
+				if (_timer <= 0)
+				{
+					if (FP.random < 0.3)
+						create(EnemyCritter);
+					else
+						create(FriendCritter);
+					_timer = 110;
+				}
 				else
-					create(FriendCritter);
-				_timer = 110;
+					_timer--;
+					
+				if (_giantTimer <= 0)
+				{
+					create(EnemyGiantCritter);
+					_giantTimer = 1200;
+				}
+				else
+					_giantTimer--;
 			}
-			else
-				_timer--;
-				
-			if (_giantTimer <= 0)
-			{
-				create(EnemyGiantCritter);
-				_giantTimer = 1200;
-			}
-			else
-				_giantTimer--;
 			
 			if (Global.friendsFollowing >= Global.goalFollowing)
-				FP.world = new ThirdWorld();
+				Global.end = true;
+				
+			if (Global.end)
+			{
+				if (Global.endTimer <= 0)
+					FP.world = new ThirdWorld();
+				else
+					Global.endTimer--;
+			}
 				
 			super.update();
 		}

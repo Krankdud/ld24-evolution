@@ -14,6 +14,7 @@ package
 		public function FriendFish() 
 		{
 			super(0, 0, Image.createRect(4, 4, 0x00FF00));
+			layer = 5;
 			setHitbox(4, 4);
 			type = "friend";
 		}
@@ -58,6 +59,14 @@ package
 					speed.x = 0;
 					speed.y = 0;
 				}
+				
+				if (Global.end)
+				{
+					if (Global.endTimer <= 180)
+						FP.angleXY(speed, FP.angle(centerX, centerY, Global.player.x, Global.player.y), 1);
+					if (Global.endTimer <= 1)
+						FP.world.remove(this);
+				}
 			}
 			
 			if (FP.distance(x, y, Global.player.x, Global.player.y) > FP.width)
@@ -67,7 +76,7 @@ package
 			e.x = centerX;
 			e.y = centerY;
 			
-			if (collide("enemy", x + speed.x, y + speed.y))
+			if (collide("enemy", x + speed.x, y + speed.y) && !Global.end)
 				FP.world.recycle(this);
 			
 			super.update();

@@ -35,7 +35,7 @@ package
 				else
 					(graphic as Image).scale -= 1;
 			}
-			else
+			else if (!Global.end)
 			{
 				if (Input.check(Key.RIGHT))
 				{
@@ -77,10 +77,19 @@ package
 				
 				speed.x = FP.clamp(speed.x, -MAX_SPEED, MAX_SPEED);
 				speed.y = FP.clamp(speed.y, -MAX_SPEED, MAX_SPEED);
-				var e:Entity = FP.world.create(ParticleTrail);
-				e.x = centerX;
-				e.y = centerY;
 			}
+			else
+			{
+				speed.x = 0;
+				speed.y = 0;
+				
+				if (Global.endTimer <= 120)
+					(graphic as Image).scale += 1;
+			}
+			
+			var e:Entity = FP.world.create(ParticleTrail);
+			e.x = centerX;
+			e.y = centerY;
 			
 			super.update();
 		}

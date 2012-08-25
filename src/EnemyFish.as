@@ -21,6 +21,7 @@ package
 		{
 			super(0, 0, Image.createRect(8, 8, 0xFF0000));
 			setHitbox(8, 8);
+			layer = 10;
 			type = "enemy";
 		}
 		

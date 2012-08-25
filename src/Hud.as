@@ -12,12 +12,12 @@ package
 		private var _graphiclist:Graphiclist;
 		private var _follow:Text;
 		private var _need:Text;
+		private var _evolve:Text;
 		
 		private var _keyRight:Spritemap;
 		private var _keyLeft:Spritemap;
 		private var _keyUp:Spritemap;
 		private var _keyDown:Spritemap;
-		private var _keyZ:Spritemap;
 		private var _keyX:Spritemap;
 		private var _keyC:Spritemap;
 		
@@ -31,11 +31,15 @@ package
 			
 			_follow = new Text("Following: 999999", 2, 2);
 			var o:Object = new Object;
-			o.align = "right"
+			o.align = "right";
 			_need = new Text("Need: 999", FP.width - 86, 2, o);
+			o.align = "center";
+			_evolve = new Text("We evolve..", FP.halfWidth - 48, 48, o);
+			_evolve.visible = false;
 			
 			_graphiclist.add(_follow);
 			_graphiclist.add(_need);
+			_graphiclist.add(_evolve);
 			
 			_keyRight = new Spritemap(Resources.IMG_KEYS, 8, 8);
 			_keyRight.add("off", [2]);
@@ -61,22 +65,16 @@ package
 			_keyUp.x = 12;
 			_keyUp.y = FP.height - 20;
 			_keyUp.play("off");
-			_keyZ = new Spritemap(Resources.IMG_KEYS, 8, 8);
-			_keyZ.add("off", [10]);
-			_keyZ.add("on", [11]);
-			_keyZ.x = 32;
-			_keyZ.y = FP.height - 10;
-			_keyZ.play("off");
 			_keyX = new Spritemap(Resources.IMG_KEYS, 8, 8);
 			_keyX.add("off", [12]);
 			_keyX.add("on", [13]);
-			_keyX.x = 42;
+			_keyX.x = 32;
 			_keyX.y = FP.height - 10;
 			_keyX.play("off");
 			_keyC = new Spritemap(Resources.IMG_KEYS, 8, 8);
 			_keyC.add("off", [14]);
 			_keyC.add("on", [15]);
-			_keyC.x = 52;
+			_keyC.x = 42;
 			_keyC.y = FP.height - 10;
 			_keyC.play("off");
 			
@@ -84,7 +82,6 @@ package
 			_graphiclist.add(_keyLeft);
 			_graphiclist.add(_keyDown);
 			_graphiclist.add(_keyUp);
-			_graphiclist.add(_keyZ);
 			_graphiclist.add(_keyX);
 			_graphiclist.add(_keyC);
 			
@@ -95,6 +92,24 @@ package
 		{
 			_follow.text = "Following: " + Global.friendsFollowing.toString();
 			_need.text = "Need: " + Global.goalFollowing.toString();
+			
+			if (Global.end)
+			{
+				_follow.visible = false;
+				_need.visible = false;
+				_evolve.visible = true;
+				
+				if (Global.endTimer <= 180)
+					_evolve.text = "TOGETHER!";
+				else if (Global.endTimer <= 10)
+					_evolve.text = "We evolve..";
+			}
+			else
+			{
+				_follow.visible = true;
+				_need.visible = true;
+				_evolve.visible = false;
+			}
 		}
 		
 		override public function render():void
@@ -116,8 +131,6 @@ package
 				_keyDown.play(s);
 			else if (key == Key.UP)
 				_keyUp.play(s);
-			else if (key == Key.Z)
-				_keyZ.play(s);
 			else if (key == Key.X)
 				_keyX.play(s);
 			else if (key == Key.C)

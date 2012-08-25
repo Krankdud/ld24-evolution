@@ -49,17 +49,28 @@ package
 					speed.x -= ACCELERATION;
 					
 				if (y < Global.player.y)
-					speed.y += ACCELERATION;
+					speed.y += ACCELERATION * 0.5;
 				else
-					speed.y -= ACCELERATION;
+					speed.y -= ACCELERATION * 0.5;
 					
 				speed.x = FP.clamp(speed.x, -4, 4);
-				speed.y = FP.clamp(speed.y, -4, 4);
+				speed.y = FP.clamp(speed.y, -2, 2);
 				
-				if ((Global.player as PlayerDust).hit)
+				if (!Global.end)
 				{
-					_follow = false;
-					Global.friendsFollowing--;
+					if ((Global.player as PlayerDust).hit)
+					{
+						_follow = false;
+						Global.friendsFollowing--;
+					}
+				}
+				
+				if (Global.end)
+				{
+					if (Global.endTimer <= 180)
+						FP.angleXY(speed, FP.angle(centerX, centerY, Global.player.x, Global.player.y), 1);
+					if (Global.endTimer <= 1)
+						FP.world.remove(this);
 				}
 			}
 			

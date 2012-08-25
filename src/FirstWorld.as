@@ -12,7 +12,9 @@ package
 		{
 			super();
 			
-			Global.goalFollowing = 20;
+			Global.goalFollowing = 5;
+			Global.end = false;
+			Global.endTimer = Global.END_TIME;
 			
 			Global.player = new PlayerDust(0, 0);
 			add(Global.player);
@@ -21,19 +23,30 @@ package
 		
 		override public function update():void
 		{
-			if (_timer <= 0)
+			if (!Global.end)
 			{
-				if (FP.random < 0.5)
-					create(EnemyDust);
+				if (_timer <= 0)
+				{
+					if (FP.random < 0.5)
+						create(EnemyDust);
+					else
+						create(FriendDust);
+					_timer = 20;
+				}
 				else
-					create(FriendDust);
-				_timer = 20;
+					_timer--;
 			}
-			else
-				_timer--;
 			
 			if (Global.friendsFollowing >= Global.goalFollowing)
-				FP.world = new SecondWorld();
+				Global.end = true;
+				
+			if (Global.end)
+			{
+				if (Global.endTimer <= 0)
+					FP.world = new SecondWorld();
+				else
+					Global.endTimer--;
+			}
 			
 			super.update();
 			

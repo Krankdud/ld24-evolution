@@ -101,15 +101,27 @@ package
 					Global.friendsFollowing++;
 				}
 				
-				if ((Global.player as PlayerCritter).hit && _follow)
+				if (!Global.end)
 				{
-					_follow = false;
-					Global.friendsFollowing--;
-					collideWithSolids = false;
-					_state = 2;
-					speed.x = -4 + FP.random * 8;
-					speed.y = -4;
+					if ((Global.player as PlayerCritter).hit && _follow)
+					{
+						_follow = false;
+						Global.friendsFollowing--;
+						collideWithSolids = false;
+						_state = 2;
+						speed.x = -4 + FP.random * 8;
+						speed.y = -4;
+					}
 				}
+				
+				if (_follow && Global.end)
+				{
+					if (Global.endTimer <= 180)
+						FP.angleXY(speed, FP.angle(centerX, centerY, Global.player.x, Global.player.y), 1);
+				}
+				
+				if (Global.endTimer <= 1)
+					FP.world.remove(this);
 			}
 			else if (_state == 2)
 			{

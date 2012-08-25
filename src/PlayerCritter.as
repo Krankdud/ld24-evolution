@@ -40,7 +40,7 @@ package
 				else
 					(graphic as Image).scale -= 1;
 			}
-			else
+			else if (!Global.end)
 			{
 				hit = false;
 				
@@ -89,6 +89,14 @@ package
 					_hitTimer--;
 					visible = !visible;
 				}
+			}
+			else
+			{
+				visible = true;
+				FP.angleXY(speed, FP.angle(x, y, FP.halfWidth, FP.halfHeight), 2);
+				
+				if (Global.endTimer <= 120)
+					(graphic as Image).scale += 1;
 			}
 			
 			super.update();

@@ -18,7 +18,8 @@ package
 		public function PlayerDust(x:int, y:int) 
 		{
 			super(x, y, Image.createRect(4, 4, 0xFFFF00));
-			setHitbox(4, 4);
+			setHitbox(4, 4, 2, 2);
+			(graphic as Image).centerOrigin();
 			
 			type = "player";
 			
@@ -31,7 +32,7 @@ package
 		{
 			hit = false;
 			
-			if (Input.check(Key.RIGHT))
+			if (Input.check(Key.RIGHT) && !Global.end)
 			{
 				speed.x += ACCELERATION;
 			}
@@ -43,21 +44,31 @@ package
 			e.x = centerX;
 			e.y = centerY;
 			
-			if (collide("enemy", x + speed.x, y + speed.y))
+			if (!Global.end)
 			{
-				hit = true;
-				_hitTimer = HIT_TIME;
+				if (collide("enemy", x + speed.x, y + speed.y))
+				{
+					hit = true;
+					_hitTimer = HIT_TIME;
+				}
+				
+				if (_hitTimer <= 0)
+				{
+					visible = true;
+					hit = false;
+				}
+				else
+				{
+					_hitTimer--;
+					visible = !visible;
+				}
 			}
 			
-			if (_hitTimer <= 0)
+			if (Global.end)
 			{
 				visible = true;
-				hit = false;
-			}
-			else
-			{
-				_hitTimer--;
-				visible = !visible;
+				if (Global.endTimer <= 120)
+					(graphic as Image).scale += 1;
 			}
 			
 			super.update();
