@@ -15,6 +15,8 @@ package
 		{
 			super();
 			
+			FP.screen.color = 0x000000;
+			
 			Global.end = false;
 			Global.endTimer = Global.END_TIME;
 			

@@ -93,6 +93,9 @@ package
 				speed.x = 0;
 				speed.y = 0;
 				
+				if (Global.endTimer == 120)
+					Resources.sfxEvolve.play();
+				
 				if (Global.endTimer <= 120)
 					_spritemap.scale += 1;
 			}

@@ -20,6 +20,8 @@ package
 			var title:Text = new Text("We Evolve\nTOGETHER!", 118, 64);
 			var enter:Text = new Text("Press Enter", 108, 148);
 			
+			FP.screen.color = 0x202020;
+			
 			_fadeout = false;
 			
 			addGraphic(title);
@@ -37,7 +39,10 @@ package
 		override public function update():void 
 		{
 			if (Input.pressed(Key.ENTER))
+			{
 				_fadeout = true;
+				Resources.sfxGamestart.play();
+			}
 			
 			if (_fadeout)
 			{

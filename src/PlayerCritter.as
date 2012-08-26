@@ -85,8 +85,9 @@ package
 				e.x = centerX;
 				e.y = centerY;
 				
-				if (collide("enemy", x + speed.x, y + speed.y))
+				if (collide("enemy", x + speed.x, y + speed.y) && !hit)
 				{
+					Resources.sfxHit.play();
 					hit = true;
 					_hitTimer = HIT_TIME;
 				}
@@ -106,6 +107,9 @@ package
 			{
 				visible = true;
 				FP.angleXY(speed, FP.angle(x, y, FP.halfWidth, FP.halfHeight), 1);
+				
+				if (Global.endTimer == 120)
+					Resources.sfxEvolve.play();
 				
 				if (Global.endTimer <= 120)
 					_spritemap.scale += 1;

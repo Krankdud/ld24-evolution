@@ -52,8 +52,14 @@ package
 		
 		override public function update():void
 		{
-			if (collide("solid", x, y + 4))
+			if (collide("solid", x, y + speed.y + 4))
 			{
+				if (speed.y > 0)
+				{
+					Global.screenShaker.shake(30);
+					Resources.sfxEarthquake.play();
+				}
+				
 				if (_timer <= 0)
 					speed.y = -SPEED;
 				else

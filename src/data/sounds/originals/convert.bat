@@ -1,0 +1,1 @@
+forfiles /m *.wav /c "c:/lame/lame.exe -h @file @fname.mp3"

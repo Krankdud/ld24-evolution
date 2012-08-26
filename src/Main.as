@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
 	
+	[Frame(factoryClass="Preloader")]
 	public class Main extends Engine
 	{
 		

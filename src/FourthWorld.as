@@ -33,7 +33,7 @@ package
 			add(Global.player);
 			add(Global.hud);
 			
-			_timer = 140;
+			_timer = 40;
 		}
 		
 		override public function update():void
@@ -41,7 +41,7 @@ package
 			if (_timer <= 0)
 			{
 				create(EnemyBull);
-				_timer = 140;
+				_timer = 40;
 			}
 			else
 				_timer--;

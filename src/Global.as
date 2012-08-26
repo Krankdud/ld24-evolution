@@ -12,6 +12,7 @@ package
 		static public var goalFollowing:int;
 		static public var end:Boolean;
 		static public var endTimer:int;
+		static public var screenShaker:ScreenShaker = new ScreenShaker();
 		
 		public function Global() 
 		{

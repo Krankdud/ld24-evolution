@@ -47,6 +47,7 @@ package
 				
 				if (collide("player", x + speed.x, y + speed.y))
 				{
+					Resources.sfxCollect.play();
 					_follow = true;
 					Global.friendsFollowing++;
 				}
@@ -68,6 +69,8 @@ package
 					
 				if (Global.end)
 				{
+					layer = 10;
+					
 					if (Global.endTimer <= 180)
 						FP.angleXY(speed, FP.angle(centerX, centerY, Global.player.x, Global.player.y), 1);
 					if (Global.endTimer <= 1)

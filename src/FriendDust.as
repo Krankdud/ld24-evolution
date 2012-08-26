@@ -42,7 +42,11 @@ package
 		override public function removed():void
 		{
 			if (_follow)
+			{
+				if (!Global.end)
+					Resources.sfxHit.play();
 				Global.friendsFollowing--;
+			}
 		}
 		
 		override public function update():void
@@ -90,6 +94,7 @@ package
 			
 			if (collideRect(x + speed.x, y + speed.y, Global.player.x - 16, Global.player.y - 16, 32, 32) && !_follow && !(Global.player as PlayerDust).hit)
 			{
+				Resources.sfxCollect.play();
 				_follow = true;
 				Global.friendsFollowing++;
 			}

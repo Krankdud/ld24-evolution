@@ -72,7 +72,7 @@ package
 				
 				if (_target != null && _target.active)
 				{
-					FP.angleXY(speed, FP.angle(x, y, _target.x, _target.y), 1);
+					FP.angleXY(speed, FP.angle(x, y, _target.x, _target.y), 2.5);
 				}
 				else
 				{
@@ -98,7 +98,7 @@ package
 				else
 				{
 					_runTimer--;
-					FP.angleXY(speed, FP.angle(x, y, Global.player.x, Global.player.y) + 180, 1.4);
+					FP.angleXY(speed, FP.angle(x, y, Global.player.x, Global.player.y) + 180, 3);
 				}
 			}
 			

@@ -44,6 +44,8 @@ package
 		{
 			if (FP.distance(x, y, Global.player.x, Global.player.y) < 60)
 			{
+				Resources.sfxHitenemy.play();
+				
 				for (var i:int = 0; i < 3; i++)
 				{
 					var e:Entity = FP.world.create(FriendBull);

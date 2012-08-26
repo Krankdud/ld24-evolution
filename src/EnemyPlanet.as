@@ -49,6 +49,8 @@ package
 				e.x = centerX;
 				e.y = centerY;
 			}
+			
+			Resources.sfxPunchingplanets.play();
 		}
 		
 		override public function update():void

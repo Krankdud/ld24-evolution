@@ -118,12 +118,14 @@ package
 				
 				if (collide("player", x + speed.x, y) && !_follow)
 				{
+					Resources.sfxCollect.play();
 					_follow = true;
 					Global.friendsFollowing++;
 				}
 				
 				if (collide("enemy", x + speed.x, y) && _follow)
 				{
+					Resources.sfxHit.play();
 					speed.x = x < Global.player.x ? -4 : 4;
 					speed.y = -3;
 					_follow = false;

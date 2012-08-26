@@ -88,6 +88,7 @@ package
 			
 			if (collide("player", x + speed.x, y + speed.y) && !_follow && !(Global.player as PlayerDragon).hit)
 			{
+				Resources.sfxCollect.play();
 				_follow = true;
 				Global.friendsFollowing++;
 			}

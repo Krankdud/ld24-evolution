@@ -44,7 +44,7 @@ package
 			{
 				if (_timer <= 0)
 				{
-					if (FP.random < 0.3)
+					if (FP.random < 0.57)
 						create(FriendFish);
 					else
 						create(EnemyFish);

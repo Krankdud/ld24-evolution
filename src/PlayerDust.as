@@ -52,8 +52,9 @@ package
 			
 			if (!Global.end)
 			{
-				if (collide("enemy", x + speed.x, y + speed.y))
+				if (collide("enemy", x + speed.x, y + speed.y) && !hit)
 				{
+					Resources.sfxHit.play();
 					hit = true;
 					_hitTimer = HIT_TIME;
 				}
@@ -73,6 +74,10 @@ package
 			if (Global.end)
 			{
 				visible = true;
+				
+				if (Global.endTimer == 120)
+					Resources.sfxEvolve.play();
+				
 				if (Global.endTimer <= 120)
 					_spritemap.scale += 1;
 			}

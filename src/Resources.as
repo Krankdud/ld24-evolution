@@ -1,6 +1,7 @@
 package  
 {
-
+    import net.flashpunk.Sfx;
+    
     public class Resources 
     {
         [Embed(source = "data/graphics/bullbackground.png")] static public const IMG_BULLBACKGROUND:Class;
@@ -34,6 +35,28 @@ package
         [Embed(source = "data/graphics/sunray.png")] static public const IMG_SUNRAY:Class;
         [Embed(source = "data/graphics/titlecircle.png")] static public const IMG_TITLECIRCLE:Class;
         [Embed(source = "data/graphics/wave.png")] static public const IMG_WAVE:Class;
+        [Embed(source = "data/sounds/batteshipshoot.mp3")] static public const SND_BATTESHIPSHOOT:Class;
+        static public var sfxBatteshipshoot:Sfx = new Sfx(SND_BATTESHIPSHOOT);
+        [Embed(source = "data/sounds/collect.mp3")] static public const SND_COLLECT:Class;
+        static public var sfxCollect:Sfx = new Sfx(SND_COLLECT);
+        [Embed(source = "data/sounds/critterland.mp3")] static public const SND_CRITTERLAND:Class;
+        static public var sfxCritterland:Sfx = new Sfx(SND_CRITTERLAND);
+        [Embed(source = "data/sounds/earthquake.mp3")] static public const SND_EARTHQUAKE:Class;
+        static public var sfxEarthquake:Sfx = new Sfx(SND_EARTHQUAKE);
+        [Embed(source = "data/sounds/evolve.mp3")] static public const SND_EVOLVE:Class;
+        static public var sfxEvolve:Sfx = new Sfx(SND_EVOLVE);
+        [Embed(source = "data/sounds/fireball.mp3")] static public const SND_FIREBALL:Class;
+        static public var sfxFireball:Sfx = new Sfx(SND_FIREBALL);
+        [Embed(source = "data/sounds/gamestart.mp3")] static public const SND_GAMESTART:Class;
+        static public var sfxGamestart:Sfx = new Sfx(SND_GAMESTART);
+        [Embed(source = "data/sounds/hit.mp3")] static public const SND_HIT:Class;
+        static public var sfxHit:Sfx = new Sfx(SND_HIT);
+        [Embed(source = "data/sounds/hitenemy.mp3")] static public const SND_HITENEMY:Class;
+        static public var sfxHitenemy:Sfx = new Sfx(SND_HITENEMY);
+        [Embed(source = "data/sounds/punchingplanets.mp3")] static public const SND_PUNCHINGPLANETS:Class;
+        static public var sfxPunchingplanets:Sfx = new Sfx(SND_PUNCHINGPLANETS);
+        [Embed(source = "data/sounds/sink.mp3")] static public const SND_SINK:Class;
+        static public var sfxSink:Sfx = new Sfx(SND_SINK);
         
         public function Resources() 
         {

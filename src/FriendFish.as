@@ -57,6 +57,7 @@ package
 				
 				if (collide("player", x + speed.x, y + speed.y))
 				{
+					Resources.sfxCollect.play();
 					_follow = true;
 					Global.friendsFollowing++;
 				}

@@ -76,6 +76,8 @@ package
 				else
 					Global.endTimer--;
 			}
+			
+			Global.screenShaker.update();
 				
 			super.update();
 		}

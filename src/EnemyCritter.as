@@ -61,6 +61,9 @@ package
 			
 			if (collide("solid", x + speed.x, y + speed.y + 1))
 			{
+				if (speed.y > 0)
+					Resources.sfxCritterland.play();
+				
 				speed.x = 0;
 				_spritemap.play("stand");
 			}

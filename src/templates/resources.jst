@@ -1,10 +1,15 @@
 package  
 {
-
+	import net.flashpunk.Sfx;
+	
 	public class Resources 
 	{
 {for gfx in files1}
 		[Embed(source = "data/graphics/${gfx.Name}")] static public const IMG_${baseNameUpperCase(gfx)}:Class;
+{/for}
+{for snd in files2}
+		[Embed(source = "data/sounds/${snd.Name}")] static public const SND_${baseNameUpperCase(snd)}:Class;
+		static public var sfx${baseNameProperCase(snd)}:Sfx = new Sfx(SND_${baseNameUpperCase(snd)});
 {/for}
 		
 		public function Resources() 

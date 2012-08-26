@@ -98,6 +98,7 @@ package
 				{
 					// FIRE ZE FIREBALLS OF DOOM
 					e = FP.world.create(PlayerFireball);
+					Resources.sfxFireball.play();
 					switch (_lastKey)
 					{
 						case Key.RIGHT:
@@ -139,14 +140,18 @@ package
 				speed.x = 0;
 				speed.y = 0;
 				
+				if (Global.endTimer == 120)
+					Resources.sfxEvolve.play();
+				
 				if (Global.endTimer <= 120)
 					_spritemap.scale += 1;
 			}
 			
 			if (!Global.end)
 			{
-				if (collide("enemyfire", x + speed.x, y + speed.y))
+				if (collide("enemyfire", x + speed.x, y + speed.y) && !hit)
 				{
+					Resources.sfxHit.play();
 					hit = true;
 					_hitTimer = HIT_TIME;
 				}

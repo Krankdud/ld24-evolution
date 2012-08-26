@@ -58,6 +58,18 @@ package
 			if (_follow)
 			{
 				FP.angleXY(speed, FP.angle(centerX, centerY, Global.player.centerX, Global.player.centerY), 4);
+				var c:Entity = collide("friend", x, y);
+				if (c)
+				{
+					if (x > c.x)
+						x++;
+					else
+						x--;
+					if (y > c.y)
+						y++;
+					else
+						y--;
+				}
 				if (collide("friend", x + speed.x, y + speed.y) || collide("player", x + speed.x, y + speed.y))
 				{
 					speed.x = 0;
@@ -87,6 +99,7 @@ package
 			
 			if (collide("player", x, y) && _timer <= 0 && !_follow)
 			{
+				Resources.sfxCollect.play();
 				_follow = true;
 				Global.friendsFollowing++;
 			}

@@ -45,6 +45,7 @@ package
 					e.x = centerX;
 					e.y = centerY;
 					FP.angleXY((e as BaseEntity).speed, FP.angle(centerX, centerY, Global.player.centerX, Global.player.centerY), 3);
+					Resources.sfxBatteshipshoot.play();
 					_fireTimer = FIRE_TIME;
 				}
 				else
@@ -59,6 +60,7 @@ package
 			var c:Entity = collide("playerfire", x, y);
 			if (c)
 			{
+				Resources.sfxSink.play();
 				FP.world.recycle(c);
 				FP.world.recycle(this);
 			}
