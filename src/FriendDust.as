@@ -3,16 +3,26 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 
 	public class FriendDust extends BaseEntity
 	{
 		private var _follow:Boolean;
 		private const ACCELERATION:Number = 0.3;
 		
+		private var _spritemap:Spritemap;
+		
 		public function FriendDust() 
 		{
-			super(0, 0, Image.createRect(4, 4, 0x00FF00));
-			setHitbox(4, 4);
+			super(0, 0);
+			setHitbox(4, 4, 2, 2);
+			
+			_spritemap = new Spritemap(Resources.IMG_FRIENDDUST, 6, 6);
+			_spritemap.add("anim", [0, 1], 0.2);
+			_spritemap.play("anim");
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
+			
 			layer = 50;
 			type = "friend";
 		}

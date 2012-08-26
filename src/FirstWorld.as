@@ -1,5 +1,7 @@
 package  
 {
+	import net.flashpunk.Entity;
+	import net.flashpunk.graphics.Stamp;
 	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.World;
 	import net.flashpunk.FP;
@@ -7,6 +9,7 @@ package
 	public class FirstWorld extends World
 	{
 		private var _timer:int;
+		private var _background:Entity;
 		
 		public function FirstWorld() 
 		{
@@ -19,6 +22,8 @@ package
 			Global.player = new PlayerDust(0, 0);
 			add(Global.player);
 			add(Global.hud);
+			
+			_background = addGraphic(new Stamp(Resources.IMG_DUSTBACKGROUND), 9999);
 		}
 		
 		override public function update():void
@@ -51,6 +56,8 @@ package
 			super.update();
 			
 			Global.camera.update();
+			_background.x = Global.camera.x;
+			_background.y = Global.camera.y;
 		}
 		
 	}

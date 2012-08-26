@@ -23,7 +23,7 @@ package
 			setHitbox(4, 4, 2, 2);
 			
 			_spritemap = new Spritemap(Resources.IMG_PLAYERDUST, 6, 6);
-			_spritemap.add("thisistheonlyanimationthislittlepieceofdusthas", [0, 1], 0.3);
+			_spritemap.add("thisistheonlyanimationthislittlepieceofdusthas", [0, 1], 0.2);
 			_spritemap.play("thisistheonlyanimationthislittlepieceofdusthas");
 			
 			_spritemap.centerOrigin();

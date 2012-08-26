@@ -3,14 +3,23 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Spritemap;
 
 	public class EnemyDust extends BaseEntity
 	{
+		private var _spritemap:Spritemap;
 		
 		public function EnemyDust() 
 		{
-			super(0, 0, Image.createRect(6, 6, 0xFF0000));
-			setHitbox(4, 4, -1, -1);
+			super(0, 0);
+			setHitbox(4, 4, 2, 2);
+			
+			_spritemap = new Spritemap(Resources.IMG_ENEMYDUST, 6, 6);
+			_spritemap.add("anim", [0, 1], 0.2);
+			_spritemap.play("anim");
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
+			
 			type = "enemy";
 		}
 		

@@ -161,7 +161,7 @@ package
 			e.x = centerX;
 			e.y = centerY;
 			
-			if (speed.x != 0 && speed.y != 0 && !Global.end)
+			if ((speed.x != 0 || speed.y != 0) && !Global.end)
 			{
 				if (_dashing)
 					_spritemap.play("charge");

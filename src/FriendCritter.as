@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	
 	public class FriendCritter extends BaseEntity
 	{
@@ -19,10 +20,20 @@ package
 		
 		private var _follow:Boolean;
 		
+		private var _spritemap:Spritemap;
+		
 		public function FriendCritter() 
 		{
 			super(0, 0, Image.createRect(8, 8, 0x00FF00));
-			setHitbox(8, 7);
+			setHitbox(8, 8, 4, 4);
+			
+			_spritemap = new Spritemap(Resources.IMG_FRIENDCRITTER, 16, 16);
+			_spritemap.add("down", [0]);
+			_spritemap.add("stand", [1]);
+			_spritemap.add("up", [2]);
+			_spritemap.play("down");
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
 			
 			layer = 5;
 			
@@ -70,6 +81,7 @@ package
 					if (_moveTimer <= 0)
 					{
 						speed.x = (FP.random < 0.5) ? SPEED : -SPEED;
+						speed.y = -3;
 						_moveTimer = MOVE_TIME;
 					}
 					else
@@ -95,10 +107,27 @@ package
 						speed.x = 0;
 				}
 				
+				if (collide("solid", x, y + speed.y + 1))
+				{
+					if (!_follow)
+						speed.x = 0;
+				}
+				else
+					speed.y += 0.4;
+				
+				
 				if (collide("player", x + speed.x, y) && !_follow)
 				{
 					_follow = true;
 					Global.friendsFollowing++;
+				}
+				
+				if (collide("enemy", x + speed.x, y) && _follow)
+				{
+					speed.x = x < Global.player.x ? -4 : 4;
+					speed.y = -3;
+					_follow = false;
+					Global.friendsFollowing--;
 				}
 				
 				if (!Global.end)
@@ -131,9 +160,18 @@ package
 					FP.world.recycle(this);
 			}
 			
+			x = FP.clamp(x, 4, FP.width - 4);
+			
 			var e:Entity = FP.world.create(ParticleTrail);
 			e.x = centerX;
 			e.y = centerY;
+			
+			if (collide("solid", x, y + 1))
+				_spritemap.play("stand");
+			else if (speed.y < 0)
+				_spritemap.play("up");
+			else if (speed.y > 0)
+				_spritemap.play("down");
 			
 			super.update();
 		}

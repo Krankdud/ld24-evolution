@@ -2,6 +2,7 @@ package
 {
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Spritemap;
 
 	public class EnemyGiantCritter extends BaseEntity
 	{
@@ -10,32 +11,41 @@ package
 		private var _timer:int;
 		private var _shadow:EnemyGiantCritterShadow;
 		
+		private var _image:Image;
+		
 		public function EnemyGiantCritter() 
 		{
-			super(0, 0, Image.createRect(128, 128, 0xFF0000));
-			setHitbox(128, 128);
+			super(0, 0);
+			setHitbox(128, 128, 64, 64);
+			
+			_image = new Image(Resources.IMG_ENEMYGIANTCRITTER);
+			_image.centerOrigin();
+			graphic = _image;
+			
 			type = "enemy"
 			layer = 20;
 		}
 		
 		override public function added():void
 		{
-			x = FP.random * (FP.width - width)
+			x = halfWidth + FP.random * (FP.width - width)
 			y = -1024;
 			
 			speed.y = SPEED;
 			
-			_shadow = new EnemyGiantCritterShadow(x);
+			_shadow = new EnemyGiantCritterShadow(x - halfWidth);
 			FP.world.add(_shadow);
 			
 			_timer = 140;
+			
+			_image.flipped = FP.random < 0.5;
 			
 			super.added();
 		}
 		
 		override public function removed():void
 		{
-			FP.world.remove(_shadow);
+			_shadow.fade = true;
 			
 			super.removed();
 		}

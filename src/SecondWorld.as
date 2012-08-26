@@ -1,6 +1,8 @@
 package  
 {
+	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Stamp;
 	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
@@ -30,10 +32,11 @@ package
 			Global.goalFollowing = 20;
 			
 			Global.player = new PlayerCritter(FP.halfWidth, FP.halfHeight);
-			addGraphic(Image.createRect(FP.width, 64), 100, 0, FP.height - 64);
 			add(Global.player);
 			add(Global.hud);
 			addMask(new Hitbox(FP.width, 64), "solid", 0, FP.height - 64);
+			
+			addGraphic(new Stamp(Resources.IMG_CRITTERBACKGROUND), 9999);
 			
 			_timer = 60;
 			_giantTimer = 1000;

@@ -3,6 +3,13 @@ package
 
     public class Resources 
     {
+        [Embed(source = "data/graphics/critterbackground.png")] static public const IMG_CRITTERBACKGROUND:Class;
+        [Embed(source = "data/graphics/dustbackground.png")] static public const IMG_DUSTBACKGROUND:Class;
+        [Embed(source = "data/graphics/enemycritter.png")] static public const IMG_ENEMYCRITTER:Class;
+        [Embed(source = "data/graphics/enemydust.png")] static public const IMG_ENEMYDUST:Class;
+        [Embed(source = "data/graphics/enemygiantcritter.png")] static public const IMG_ENEMYGIANTCRITTER:Class;
+        [Embed(source = "data/graphics/friendcritter.png")] static public const IMG_FRIENDCRITTER:Class;
+        [Embed(source = "data/graphics/frienddust.png")] static public const IMG_FRIENDDUST:Class;
         [Embed(source = "data/graphics/keys.png")] static public const IMG_KEYS:Class;
         [Embed(source = "data/graphics/planet.png")] static public const IMG_PLANET:Class;
         [Embed(source = "data/graphics/playerbull.png")] static public const IMG_PLAYERBULL:Class;
