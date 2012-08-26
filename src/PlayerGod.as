@@ -108,7 +108,7 @@ package
 				
 				if (_spritemap.currentAnim == "punch" && _spritemap.frame == 2)
 				{
-					var c:Entity = collide("solid", x + (_right ? 8 : -8), y);
+					var c:Entity = collide("solid", x + (_right ? 16 : -16), y);
 					if (c)
 					{
 						(c as EnemyPlanet).punched(_right);

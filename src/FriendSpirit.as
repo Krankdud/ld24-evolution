@@ -16,7 +16,7 @@ package
 		public function FriendSpirit() 
 		{
 			super(0, 0, Image.createRect(2, 2, 0x00FF00));
-			layer = 5;
+			layer = -5 + 10 * FP.random;
 			setHitbox(2, 2);
 			collideWithSolids = false;
 			type = "friend";

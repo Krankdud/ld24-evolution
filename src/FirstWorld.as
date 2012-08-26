@@ -1,6 +1,7 @@
 package  
 {
 	import net.flashpunk.Entity;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Stamp;
 	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.World;
@@ -10,6 +11,9 @@ package
 	{
 		private var _timer:int;
 		private var _background:Entity;
+		
+		private var _fade:Entity;
+		
 		
 		public function FirstWorld() 
 		{
@@ -24,6 +28,7 @@ package
 			add(Global.hud);
 			
 			_background = addGraphic(new Stamp(Resources.IMG_DUSTBACKGROUND), 9999);
+			_fade = addGraphic(Image.createRect(320, 240, 0x000000, 1), -9999);
 		}
 		
 		override public function update():void
@@ -58,6 +63,15 @@ package
 			Global.camera.update();
 			_background.x = Global.camera.x;
 			_background.y = Global.camera.y;
+			
+			if (_fade)
+			{
+				_fade.x = Global.camera.x;
+				_fade.y = Global.camera.y;
+				(_fade.graphic as Image).alpha -= 0.1;
+				if ((_fade.graphic as Image).alpha <= 0)
+					remove(_fade);
+			}
 		}
 		
 	}

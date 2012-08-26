@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Spritemap;
 	
 	public class EnemyBull extends BaseEntity
 	{
@@ -10,12 +11,20 @@ package
 		private var _running:Boolean;
 		private var _fireTimer:int;
 		
+		private var _spritemap:Spritemap;
+		
 		public function EnemyBull() 
 		{
-			super(0, 0, Image.createRect(16, 16, 0xFF0000));
-			setHitbox(16, 16);
+			super(0, 0);
+			setHitbox(16, 16, 8, 8);
 			layer = 10;
 			type = "enemy";
+			
+			_spritemap = new Spritemap(Resources.IMG_ENEMYBULL, 24, 24);
+			_spritemap.add("walk", [0, 1], 0.1);
+			_spritemap.add("run", [0, 1], 0.3);
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
 		}
 		
 		override public function added():void
@@ -69,7 +78,13 @@ package
 			
 			if (FP.distance(x, y, Global.player.x, Global.player.y) > FP.width)
 				FP.world.recycle(this);
-			
+				
+			_spritemap.play((_running) ? "run" : "walk");
+			if (speed.x < 0)
+				_spritemap.flipped = true;
+			else
+				_spritemap.flipped = false;
+				
 			super.update();
 		}
 		

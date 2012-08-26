@@ -33,7 +33,8 @@ package
 			speed.x = 0;
 			speed.y = 0;
 			
-			_image.color = COLORS[Math.floor(5 * FP.random)];
+			//_image.color = COLORS[Math.floor(5 * FP.random)];
+			_image.color = 0x888888 + 0x777777 * FP.random;
 		}
 		
 		public function punched(right:Boolean):void

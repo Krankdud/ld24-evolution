@@ -34,6 +34,7 @@ package
 			
 			add(Global.player);
 			add(Global.hud);
+			add(new StarBackground());
 			
 			_white = addGraphic(Image.createRect(FP.width, FP.height, 0xFFFFFF, 0), -9999);
 			

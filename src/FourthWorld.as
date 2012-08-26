@@ -3,6 +3,7 @@ package
 	import net.flashpunk.World;
 	import net.flashpunk.FP;
 	import net.flashpunk.utils.Key;
+	import net.flashpunk.graphics.Stamp;
 
 	public class FourthWorld extends World
 	{
@@ -28,6 +29,7 @@ package
 			Global.friendsFollowing = 0;
 			Global.goalFollowing = 20;
 			
+			add(new BullBackground());
 			add(Global.player);
 			add(Global.hud);
 			

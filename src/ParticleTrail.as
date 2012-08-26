@@ -7,9 +7,14 @@ package
 		
 		public function ParticleTrail() 
 		{
-			super(0, 0, Image.createRect(1, 1, 0x00FFFF));
+			super(0, 0, Image.createRect(1, 1, 0xFFFFFF));
 			layer = 100;
 			lifeTime = 10;
+		}
+		
+		public function setColor(color:uint):void
+		{
+			(graphic as Image).color = color;
 		}
 		
 		override public function added():void
