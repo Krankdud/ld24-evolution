@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.utils.Input;
 	
@@ -23,12 +24,21 @@ package
 		
 		private var _dashTimer:int;
 		
+		private var _spritemap:Spritemap;
+		
 		public function PlayerBull(x:int, y:int) 
 		{
 			super(x, y, Image.createRect(16, 16, 0xFFFF00));
 			setHitbox(16, 16, 8, 8);
-			(graphic as Image).centerOrigin();
-			(graphic as Image).scale = 40;
+			
+			_spritemap = new Spritemap(Resources.IMG_PLAYERBULL, 48, 48);
+			_spritemap.add("stand", [0]);
+			_spritemap.add("walk", [0, 1], 0.2);
+			_spritemap.add("charge", [2, 3], 0.4);
+			_spritemap.play("stand");
+			_spritemap.centerOrigin();
+			_spritemap.scale = 40;
+			graphic = _spritemap;
 			
 			type = "player";
 		}
@@ -37,12 +47,12 @@ package
 		{
 			if (_intro)
 			{
-				if ((graphic as Image).scale == 1)
+				if (_spritemap.scale == 1)
 				{
 					_intro = false;
 				}
 				else
-					(graphic as Image).scale -= 1;
+					_spritemap.scale -= 1;
 			}
 			else if (!Global.end)
 			{
@@ -50,11 +60,13 @@ package
 				{
 					speed.x += ACCELERATION;
 					_right = true;
+					_spritemap.flipped = false;
 				}
 				else if (Input.check(Key.LEFT))
 				{
 					speed.x -= ACCELERATION;
 					_right = false;
+					_spritemap.flipped = true;
 				}
 				
 				if (Input.check(Key.UP))
@@ -113,7 +125,7 @@ package
 				speed.y = 0;
 				
 				if (Global.endTimer <= 120)
-					(graphic as Image).scale += 1;
+					_spritemap.scale += 1;
 			}
 			
 			if (!Global.end)
@@ -148,6 +160,16 @@ package
 			var e:Entity = FP.world.create(ParticleTrail);
 			e.x = centerX;
 			e.y = centerY;
+			
+			if (speed.x != 0 && speed.y != 0 && !Global.end)
+			{
+				if (_dashing)
+					_spritemap.play("charge");
+				else
+					_spritemap.play("walk");
+			}
+			else
+				_spritemap.play("stand");
 			
 			super.update();
 		}

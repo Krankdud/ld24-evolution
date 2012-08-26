@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.utils.Input;
 	
@@ -19,12 +20,22 @@ package
 		
 		private var _dashTimer:int;
 		
+		private var _spritemap:Spritemap;
+		
 		public function PlayerGod() 
 		{
 			super(x, y, Image.createRect(32, 48, 0xFFFF00));
-			setHitbox(32, 48, 8, 8);
-			(graphic as Image).centerOrigin();
-			(graphic as Image).scale = 40;
+			setHitbox(32, 48, 16, 24);
+			
+			_spritemap = new Spritemap(Resources.IMG_PLAYERGOD, 96, 64);
+			_spritemap.add("float", [0]);
+			_spritemap.add("punch", [1, 1, 2], 0.1, false);
+			_spritemap.add("charge", [3]);
+			_spritemap.play("float");
+			
+			_spritemap.centerOrigin();
+			_spritemap.scale = 40;
+			graphic = _spritemap;
 			
 			type = "player";
 		}
@@ -33,12 +44,12 @@ package
 		{
 			if (_intro)
 			{
-				if ((graphic as Image).scale == 1)
+				if (_spritemap.scale == 1)
 				{
 					_intro = false;
 				}
 				else
-					(graphic as Image).scale -= 1;
+					_spritemap.scale -= 1;
 			}
 			else if (!Global.end)
 			{
@@ -46,11 +57,13 @@ package
 				{
 					speed.x += ACCELERATION;
 					_right = true;
+					_spritemap.flipped = false;
 				}
 				else if (Input.check(Key.LEFT))
 				{
 					speed.x -= ACCELERATION;
 					_right = false;
+					_spritemap.flipped = true;
 				}
 				
 				if (Input.check(Key.UP))
@@ -88,13 +101,21 @@ package
 					_dashTimer = DASH_TIME;
 				}
 				
-				if (Input.pressed(Key.C))
+				if (Input.pressed(Key.C) && !_dashing)
+				{
+					_spritemap.play("punch");
+				}
+				
+				if (_spritemap.currentAnim == "punch" && _spritemap.frame == 2)
 				{
 					var c:Entity = collide("solid", x + (_right ? 8 : -8), y);
 					if (c)
 					{
 						(c as EnemyPlanet).punched(_right);
 					}
+					
+					if (_spritemap.complete)
+						_spritemap.play("float");
 				}
 				
 				speed.x = FP.clamp(speed.x, -MAX_SPEED, MAX_SPEED);
@@ -113,9 +134,14 @@ package
 				if (_dashTimer <= 0)
 				{
 					_dashing = false;
+					if (_spritemap.currentAnim == "charge")
+						_spritemap.play("float");
 				}
 				else
+				{
 					_dashTimer--;
+					_spritemap.play("charge");
+				}
 			}
 			else
 			{
@@ -123,7 +149,7 @@ package
 				speed.y = 0;
 				
 				if (Global.endTimer <= 120)
-					(graphic as Image).scale += 1;
+					_spritemap.scale += 1;
 			}
 			
 			if (!Global.end)

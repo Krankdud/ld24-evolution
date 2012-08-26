@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 
@@ -17,12 +18,21 @@ package
 		
 		private var _intro:Boolean = true;
 		
+		private var _spritemap:Spritemap;
+		
 		public function PlayerCritter(x:int, y:int) 
 		{
-			super(x, y, Image.createRect(8, 8, 0xFFFF00));
+			super(x, y);
 			setHitbox(8, 8, 4, 4);
-			(graphic as Image).centerOrigin();
-			(graphic as Image).scale = 40;
+			
+			_spritemap = new Spritemap(Resources.IMG_PLAYERCRITTER, 16, 16);
+			_spritemap.add("stand", [0]);
+			_spritemap.add("walk", [0, 1], 0.2);
+			_spritemap.play("stand");
+			
+			_spritemap.centerOrigin();
+			_spritemap.scale = 40;
+			graphic = _spritemap;
 			
 			type = "player";
 			
@@ -33,12 +43,12 @@ package
 		{
 			if (_intro)
 			{
-				if ((graphic as Image).scale == 1)
+				if (_spritemap.scale == 1)
 				{
 					_intro = false;
 				}
 				else
-					(graphic as Image).scale -= 1;
+					_spritemap.scale -= 1;
 			}
 			else if (!Global.end)
 			{
@@ -47,10 +57,12 @@ package
 				if (Input.check(Key.RIGHT))
 				{
 					speed.x += ACCELERATION;
+					_spritemap.flipped = false;
 				}
 				else if (Input.check(Key.LEFT))
 				{
 					speed.x -= ACCELERATION;
+					_spritemap.flipped = true;
 				}
 				
 				if (!Input.check(Key.RIGHT) && !Input.check(Key.LEFT))
@@ -96,10 +108,15 @@ package
 				FP.angleXY(speed, FP.angle(x, y, FP.halfWidth, FP.halfHeight), 1);
 				
 				if (Global.endTimer <= 120)
-					(graphic as Image).scale += 1;
+					_spritemap.scale += 1;
 			}
 			
 			super.update();
+			
+			if (speed.x == 0 || Global.end)
+				_spritemap.play("stand");
+			else
+				_spritemap.play("walk");
 			
 			x = FP.clamp(x, halfWidth, FP.width - halfWidth);
 		}

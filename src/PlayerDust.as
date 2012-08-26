@@ -2,7 +2,7 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
-	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 
@@ -15,11 +15,19 @@ package
 		public var hit:Boolean = false;
 		private var _hitTimer:int;
 		
+		private var _spritemap:Spritemap;
+		
 		public function PlayerDust(x:int, y:int) 
 		{
-			super(x, y, Image.createRect(4, 4, 0xFFFF00));
+			super(x, y);
 			setHitbox(4, 4, 2, 2);
-			(graphic as Image).centerOrigin();
+			
+			_spritemap = new Spritemap(Resources.IMG_PLAYERDUST, 6, 6);
+			_spritemap.add("thisistheonlyanimationthislittlepieceofdusthas", [0, 1], 0.3);
+			_spritemap.play("thisistheonlyanimationthislittlepieceofdusthas");
+			
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
 			
 			type = "player";
 			
@@ -66,7 +74,7 @@ package
 			{
 				visible = true;
 				if (Global.endTimer <= 120)
-					(graphic as Image).scale += 1;
+					_spritemap.scale += 1;
 			}
 			
 			super.update();

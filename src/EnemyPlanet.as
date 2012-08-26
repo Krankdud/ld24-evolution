@@ -6,14 +6,21 @@ package
 
 	public class EnemyPlanet extends BaseEntity
 	{
+		private const COLORS:Array = new Array(0x7d9eff, 0xffb6b6, 0xdfff7d, 0xffdf7d, 0xbe7dff);
 		private const PUNCH_SPEED:int = 8;
+		
+		private var _image:Image;
 		
 		public function EnemyPlanet() 
 		{
-			super(0, 0, Image.createCircle(32, 0xFF0000));
-			setHitbox(64, 64);
-			graphic.x = -8;
-			graphic.y = -16;
+			super(0, 0);
+			setHitbox(64, 64, 32, 32);
+			layer = 80;
+			
+			_image = new Image(Resources.IMG_PLANET);
+			_image.centerOrigin();
+			graphic = _image;
+			
 			collideWithSolids = false;
 			type = "solid";
 		}
@@ -25,6 +32,8 @@ package
 			
 			speed.x = 0;
 			speed.y = 0;
+			
+			_image.color = COLORS[Math.floor(5 * FP.random)];
 		}
 		
 		public function punched(right:Boolean):void

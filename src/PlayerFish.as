@@ -2,6 +2,7 @@ package
 {	
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.FP;
@@ -14,12 +15,21 @@ package
 		
 		private var _intro:Boolean = true;
 		
+		private var _spritemap:Spritemap;
+		
 		public function PlayerFish(x:int, y:int) 
 		{
 			super(x, y, Image.createRect(12, 12, 0xFFFF00));
 			setHitbox(12, 12, 6, 6);
-			(graphic as Image).centerOrigin();
-			(graphic as Image).scale = 40;
+			
+			_spritemap = new Spritemap(Resources.IMG_PLAYERFISH, 20, 20);
+			_spritemap.add("swimx", [0, 1], 0.2);
+			_spritemap.add("swimy", [2, 3], 0.2);
+			_spritemap.play("swimy");
+			
+			_spritemap.centerOrigin();
+			_spritemap.scale = 40;
+			graphic = _spritemap;
 			
 			type = "player";
 		}
@@ -28,31 +38,39 @@ package
 		{
 			if (_intro)
 			{
-				if ((graphic as Image).scale == 1)
+				if (_spritemap.scale == 1)
 				{
 					_intro = false;
 				}
 				else
-					(graphic as Image).scale -= 1;
+					_spritemap.scale -= 1;
 			}
 			else if (!Global.end)
 			{
 				if (Input.check(Key.RIGHT))
 				{
 					speed.x += ACCELERATION;
+					_spritemap.play("swimx");
+					_spritemap.flipped = false;
 				}
 				else if (Input.check(Key.LEFT))
 				{
 					speed.x -= ACCELERATION;
+					_spritemap.play("swimx");
+					_spritemap.flipped = true;
 				}
 				
 				if (Input.check(Key.UP))
 				{
 					speed.y -= ACCELERATION;
+					_spritemap.play("swimy");
+					_spritemap.scaleY = -1;
 				}
 				else if (Input.check(Key.DOWN))
 				{
 					speed.y += ACCELERATION;
+					_spritemap.play("swimy");
+					_spritemap.scaleY = 1;
 				}
 				
 				if (!Input.check(Key.RIGHT) && !Input.check(Key.LEFT))
@@ -84,7 +102,7 @@ package
 				speed.y = 0;
 				
 				if (Global.endTimer <= 120)
-					(graphic as Image).scale += 1;
+					_spritemap.scale += 1;
 			}
 			
 			var e:Entity = FP.world.create(ParticleTrail);

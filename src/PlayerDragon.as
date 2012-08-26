@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.utils.Input;
 	
@@ -19,12 +20,21 @@ package
 		private var _intro:Boolean = true;
 		private var _lastKey:int;
 		
+		private var _spritemap:Spritemap;
+		
 		public function PlayerDragon() 
 		{
 			super(0, 0, Image.createRect(24, 24, 0xFFFF00));
-			setHitbox(12, 12, 6, 6);
-			(graphic as Image).centerOrigin();
-			(graphic as Image).scale = 40;
+			setHitbox(24, 24, 12, 12);
+			
+			_spritemap = new Spritemap(Resources.IMG_PLAYERDRAGON, 120, 120);
+			_spritemap.add("flyx", [0, 1], 0.1);
+			_spritemap.add("flyy", [2, 3], 0.1);
+			_spritemap.play("flyx");
+			
+			_spritemap.centerOrigin();
+			_spritemap.scale = 40;
+			graphic = _spritemap;
 			
 			type = "player";
 		}
@@ -33,31 +43,39 @@ package
 		{
 			if (_intro)
 			{
-				if ((graphic as Image).scale == 1)
+				if (_spritemap.scale == 1)
 				{
 					_intro = false;
 				}
 				else
-					(graphic as Image).scale -= 1;
+					_spritemap.scale -= 1;
 			}
 			else if (!Global.end)
 			{
 				if (Input.check(Key.UP))
 				{
 					_lastKey = Key.UP;
+					_spritemap.play("flyy");
+					_spritemap.scaleY = -1;
 				}
 				else if (Input.check(Key.DOWN))
 				{
 					_lastKey = Key.DOWN;
+					_spritemap.play("flyy");
+					_spritemap.scaleY = 1;
 				}
 				
 				if (Input.check(Key.RIGHT))
 				{
 					_lastKey = Key.RIGHT;
+					_spritemap.play("flyx");
+					_spritemap.flipped = false;
 				}
 				else if (Input.check(Key.LEFT))
 				{
-					_lastKey = Key.LEFT
+					_lastKey = Key.LEFT;
+					_spritemap.play("flyx");
+					_spritemap.flipped = true;
 				}
 				
 				if (speed.x > 0.3)
@@ -120,7 +138,7 @@ package
 				speed.y = 0;
 				
 				if (Global.endTimer <= 120)
-					(graphic as Image).scale += 1;
+					_spritemap.scale += 1;
 			}
 			
 			if (!Global.end)
