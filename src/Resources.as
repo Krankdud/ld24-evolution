@@ -30,6 +30,9 @@ package
         [Embed(source = "data/graphics/playergod.png")] static public const IMG_PLAYERGOD:Class;
         [Embed(source = "data/graphics/ripple.png")] static public const IMG_RIPPLE:Class;
         [Embed(source = "data/graphics/starfield.png")] static public const IMG_STARFIELD:Class;
+        [Embed(source = "data/graphics/sun.png")] static public const IMG_SUN:Class;
+        [Embed(source = "data/graphics/sunray.png")] static public const IMG_SUNRAY:Class;
+        [Embed(source = "data/graphics/titlecircle.png")] static public const IMG_TITLECIRCLE:Class;
         [Embed(source = "data/graphics/wave.png")] static public const IMG_WAVE:Class;
         
         public function Resources() 
