@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Spritemap;
 
 	public class FriendFish extends BaseEntity
 	{
@@ -11,12 +12,21 @@ package
 		private var _angle:int;
 		private var _follow:Boolean;
 		
+		private var _spritemap:Spritemap;
+		
 		public function FriendFish() 
 		{
-			super(0, 0, Image.createRect(4, 4, 0x00FF00));
+			super(0, 0);
 			layer = 5;
-			setHitbox(4, 4);
+			setHitbox(4, 4, 2, 2);
 			type = "friend";
+			
+			_spritemap = new Spritemap(Resources.IMG_FRIENDFISH, 8, 8);
+			_spritemap.add("swimx", [0, 1], 0.2);
+			_spritemap.add("swimy", [2, 3], 0.2);
+			_spritemap.play("swimx");
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
 		}
 		
 		override public function added():void
@@ -75,6 +85,25 @@ package
 			var e:Entity = FP.world.create(ParticleTrail);
 			e.x = centerX;
 			e.y = centerY;
+			
+			if (Math.abs(speed.x) < Math.abs(speed.y))
+			{
+				_spritemap.play("swimy");
+				
+				if (speed.y >= 0)
+					_spritemap.scaleY = 1;
+				else
+					_spritemap.scaleY = -1;
+			}
+			else
+			{
+				_spritemap.play("swimx");
+				
+				if (speed.x >= 0)
+					_spritemap.flipped = false;
+				else
+					_spritemap.flipped = true;
+			}
 			
 			if (collide("enemy", x + speed.x, y + speed.y) && !Global.end)
 				FP.world.recycle(this);

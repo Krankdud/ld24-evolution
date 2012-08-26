@@ -1,5 +1,6 @@
 package  
 {
+	import net.flashpunk.Entity;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
 	import net.flashpunk.FP;
@@ -7,10 +8,13 @@ package
 	public class ThirdWorld extends World
 	{
 		private var _timer:int;
+		private var _rippleTimer:int;
 		
 		public function ThirdWorld() 
 		{
 			super();
+			
+			FP.screen.color = 0x007dff;
 			
 			Global.end = false;
 			Global.endTimer = Global.END_TIME;
@@ -31,6 +35,7 @@ package
 			add(Global.hud);
 			
 			_timer = 30;
+			_rippleTimer = 10;
 		}
 		
 		override public function update():void
@@ -48,6 +53,16 @@ package
 				else
 					_timer--;
 			}
+			
+			if (_rippleTimer <= 0)
+			{
+				var e:Entity = create(Ripple);
+				e.x = -16 + FP.random * (FP.width + 16);
+				e.y = -16 + FP.random * (FP.height + 16);
+				_rippleTimer = 30 + 60 * FP.random;
+			}
+			else
+				_rippleTimer--;
 				
 			if (Global.friendsFollowing >= Global.goalFollowing)
 				Global.end = true;

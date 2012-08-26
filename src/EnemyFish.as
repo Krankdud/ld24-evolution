@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	
 	public class EnemyFish extends BaseEntity
 	{
@@ -17,10 +18,21 @@ package
 		private var _state:int;
 		private var _target:Entity;
 		
+		private var _spritemap:Spritemap;
+		
 		public function EnemyFish() 
 		{
-			super(0, 0, Image.createRect(8, 8, 0xFF0000));
-			setHitbox(8, 8);
+			super(0, 0);
+			setHitbox(8, 8, 4, 4);
+			
+			_spritemap = new Spritemap(Resources.IMG_ENEMYFISH, 16, 16);
+			_spritemap.add("normal", [0, 1], 0.1);
+			_spritemap.add("target", [0, 1], 0.2);
+			_spritemap.add("RUNLIKETHEWIND", [0, 1], 0.5);
+			_spritemap.play("normal");
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
+			
 			layer = 10;
 			type = "enemy";
 		}
@@ -44,6 +56,8 @@ package
 		{
 			if (_state == 0)
 			{
+				_spritemap.play("normal");
+				
 				if (_thinkTimer <= 0)
 				{
 					_target = FP.world.nearestToEntity("friend", this);
@@ -54,6 +68,8 @@ package
 			}
 			else if (_state == 1)
 			{
+				_spritemap.play("target");
+				
 				if (_target != null && _target.active)
 				{
 					FP.angleXY(speed, FP.angle(x, y, _target.x, _target.y), 1);
@@ -69,6 +85,8 @@ package
 			}
 			else if (_state == 2)
 			{
+				_spritemap.play("RUNLIKETHEWIND");
+				
 				if (_runTimer <= 0)
 				{
 					_state = 0;
@@ -83,6 +101,8 @@ package
 					FP.angleXY(speed, FP.angle(x, y, Global.player.x, Global.player.y) + 180, 1.4);
 				}
 			}
+			
+			_spritemap.flipped = speed.x < 0;
 			
 			if (FP.distance(x, y, Global.player.x, Global.player.y) < 32)
 			{
