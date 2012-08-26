@@ -116,6 +116,7 @@ package
 			var e:Entity = FP.world.create(ParticleTrail);
 			e.x = centerX;
 			e.y = centerY;
+			(e as ParticleTrail).setColor(0x00FFFF);
 			
 			super.update();
 		}

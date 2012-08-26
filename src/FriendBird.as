@@ -3,18 +3,26 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 
 	public class FriendBird extends BaseEntity
 	{
 		private var _follow:Boolean;
 		private const ACCELERATION:Number = 0.3;
+		private var _spritemap:Spritemap;
 		
 		public function FriendBird() 
 		{
-			super(0, 0, Image.createRect(8, 8, 0x00FF00));
-			setHitbox(8, 8);
+			super(0, 0);
+			setHitbox(8, 8, 4, 4);
 			layer = 5;
 			type = "friend";
+			
+			_spritemap = new Spritemap(Resources.IMG_FRIENDBIRD, 16, 16);
+			_spritemap.add("fly", [0, 1], 0.2);
+			_spritemap.play("fly");
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
 		}
 		
 		override public function added():void
@@ -83,6 +91,8 @@ package
 				_follow = true;
 				Global.friendsFollowing++;
 			}
+			
+			_spritemap.flipped = speed.x < 0;
 				
 			super.update();
 		}

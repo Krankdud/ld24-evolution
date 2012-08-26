@@ -6,6 +6,7 @@ package
         [Embed(source = "data/graphics/bullbackground.png")] static public const IMG_BULLBACKGROUND:Class;
         [Embed(source = "data/graphics/critterbackground.png")] static public const IMG_CRITTERBACKGROUND:Class;
         [Embed(source = "data/graphics/dustbackground.png")] static public const IMG_DUSTBACKGROUND:Class;
+        [Embed(source = "data/graphics/enemybattleship.png")] static public const IMG_ENEMYBATTLESHIP:Class;
         [Embed(source = "data/graphics/enemybull.png")] static public const IMG_ENEMYBULL:Class;
         [Embed(source = "data/graphics/enemycannonball.png")] static public const IMG_ENEMYCANNONBALL:Class;
         [Embed(source = "data/graphics/enemycritter.png")] static public const IMG_ENEMYCRITTER:Class;
@@ -13,6 +14,8 @@ package
         [Embed(source = "data/graphics/enemyfire.png")] static public const IMG_ENEMYFIRE:Class;
         [Embed(source = "data/graphics/enemyfish.png")] static public const IMG_ENEMYFISH:Class;
         [Embed(source = "data/graphics/enemygiantcritter.png")] static public const IMG_ENEMYGIANTCRITTER:Class;
+        [Embed(source = "data/graphics/friendbird.png")] static public const IMG_FRIENDBIRD:Class;
+        [Embed(source = "data/graphics/friendbull.png")] static public const IMG_FRIENDBULL:Class;
         [Embed(source = "data/graphics/friendcritter.png")] static public const IMG_FRIENDCRITTER:Class;
         [Embed(source = "data/graphics/frienddust.png")] static public const IMG_FRIENDDUST:Class;
         [Embed(source = "data/graphics/friendfish.png")] static public const IMG_FRIENDFISH:Class;
@@ -22,10 +25,12 @@ package
         [Embed(source = "data/graphics/playercritter.png")] static public const IMG_PLAYERCRITTER:Class;
         [Embed(source = "data/graphics/playerdragon.png")] static public const IMG_PLAYERDRAGON:Class;
         [Embed(source = "data/graphics/playerdust.png")] static public const IMG_PLAYERDUST:Class;
+        [Embed(source = "data/graphics/playerfireball.png")] static public const IMG_PLAYERFIREBALL:Class;
         [Embed(source = "data/graphics/playerfish.png")] static public const IMG_PLAYERFISH:Class;
         [Embed(source = "data/graphics/playergod.png")] static public const IMG_PLAYERGOD:Class;
         [Embed(source = "data/graphics/ripple.png")] static public const IMG_RIPPLE:Class;
         [Embed(source = "data/graphics/starfield.png")] static public const IMG_STARFIELD:Class;
+        [Embed(source = "data/graphics/wave.png")] static public const IMG_WAVE:Class;
         
         public function Resources() 
         {

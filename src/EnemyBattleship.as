@@ -10,11 +10,17 @@ package
 		private var _fireTimer:int;
 		private var _aiming:Boolean;
 		
+		private var _image:Image;
+		
 		public function EnemyBattleship() 
 		{
-			super(0, 0, Image.createRect(16, 16, 0xFF0000));
-			setHitbox(16, 16);
+			super(0, 0);
+			setHitbox(16, 16, 8, 8);
 			layer = 10;
+			
+			_image = new Image(Resources.IMG_ENEMYBATTLESHIP);
+			_image.centerOrigin();
+			graphic = _image;
 		}
 		
 		override public function added():void
@@ -59,6 +65,8 @@ package
 				
 			if (FP.distance(x, y, Global.player.x, Global.player.y) > FP.width)
 				FP.world.recycle(this);
+				
+			_image.flipped = speed.x < 0;
 			
 			super.update();
 		}

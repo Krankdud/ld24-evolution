@@ -50,27 +50,19 @@ package
 				if (Input.check(Key.RIGHT))
 				{
 					speed.x += ACCELERATION;
-					_spritemap.play("swimx");
-					_spritemap.flipped = false;
 				}
 				else if (Input.check(Key.LEFT))
 				{
 					speed.x -= ACCELERATION;
-					_spritemap.play("swimx");
-					_spritemap.flipped = true;
 				}
 				
 				if (Input.check(Key.UP))
 				{
 					speed.y -= ACCELERATION;
-					_spritemap.play("swimy");
-					_spritemap.scaleY = -1;
 				}
 				else if (Input.check(Key.DOWN))
 				{
 					speed.y += ACCELERATION;
-					_spritemap.play("swimy");
-					_spritemap.scaleY = 1;
 				}
 				
 				if (!Input.check(Key.RIGHT) && !Input.check(Key.LEFT))
@@ -108,6 +100,18 @@ package
 			var e:Entity = FP.world.create(ParticleTrail);
 			e.x = centerX;
 			e.y = centerY;
+			(e as ParticleTrail).setColor(0x00FFFF);
+			
+			if (speed.x != 0)
+			{
+				_spritemap.play("swimx");
+				_spritemap.flipped = speed.x < 0;
+			}
+			else
+			{
+				_spritemap.play("swimy");
+				_spritemap.scaleY = speed.y < 0 ? -1 : 1;
+			}
 			
 			super.update();
 		}

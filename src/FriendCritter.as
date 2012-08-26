@@ -162,10 +162,6 @@ package
 			
 			x = FP.clamp(x, 4, FP.width - 4);
 			
-			var e:Entity = FP.world.create(ParticleTrail);
-			e.x = centerX;
-			e.y = centerY;
-			
 			if (collide("solid", x, y + 1))
 				_spritemap.play("stand");
 			else if (speed.y < 0)

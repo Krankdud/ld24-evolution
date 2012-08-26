@@ -1,5 +1,6 @@
 package  
 {
+	import net.flashpunk.Entity;
 	import net.flashpunk.World;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.FP;
@@ -7,10 +8,13 @@ package
 	public class FifthWorld extends World
 	{
 		private var _timer:int;
+		private var _waveTimer:int;
 		
 		public function FifthWorld() 
 		{
 			super();
+			
+			FP.screen.color = 0x007dff;
 			
 			Global.end = false;
 			Global.endTimer = Global.END_TIME;
@@ -33,6 +37,7 @@ package
 			add(Global.hud);
 			
 			_timer = 100;
+			_waveTimer = 10;
 		}
 		
 		override public function update():void
@@ -50,6 +55,16 @@ package
 				else
 					_timer--;
 			}
+			
+			if (_waveTimer <= 0)
+			{
+				var e:Entity = create(Wave);
+				e.x = Global.camera.x - 32 + FP.random * (FP.width + 64);
+				e.y = Global.camera.y - 32 + FP.random * (FP.height + 64);
+				_waveTimer = 10;
+			}
+			else
+				_waveTimer--;
 			
 			if (Global.friendsFollowing >= Global.goalFollowing)
 				Global.end = true;

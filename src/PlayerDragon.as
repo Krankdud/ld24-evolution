@@ -32,6 +32,8 @@ package
 			_spritemap.add("flyy", [2, 3], 0.1);
 			_spritemap.play("flyx");
 			
+			_lastKey = Key.RIGHT;
+			
 			_spritemap.centerOrigin();
 			_spritemap.scale = 40;
 			graphic = _spritemap;
@@ -100,27 +102,27 @@ package
 					{
 						case Key.RIGHT:
 							e.x = x + halfWidth;
-							e.y = y - 8;
+							e.y = y;
 							speed.x -= ACCELERATION;
 							(e as BaseEntity).speed.x = 6;
 							(e as BaseEntity).speed.y = 0;
 							break;
 						case Key.LEFT:
 							e.x = x - halfWidth - 8;
-							e.y = y - 8;
+							e.y = y;
 							speed.x += ACCELERATION;
 							(e as BaseEntity).speed.x = -6;
 							(e as BaseEntity).speed.y = 0;
 							break;
 						case Key.UP:
-							e.x = x - 8;
+							e.x = x;
 							e.y = y - halfHeight - 8;
 							speed.y += ACCELERATION;
 							(e as BaseEntity).speed.x = 0;
 							(e as BaseEntity).speed.y = -6;
 							break;
 						case Key.DOWN:
-							e.x = x - 8;
+							e.x = x;
 							e.y = y - halfHeight;
 							speed.y -= ACCELERATION;
 							(e as BaseEntity).speed.x = 0;

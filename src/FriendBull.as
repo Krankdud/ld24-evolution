@@ -3,6 +3,7 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Spritemap;
 
 	public class FriendBull extends BaseEntity
 	{
@@ -10,13 +11,21 @@ package
 		
 		private var _timer:int;
 		private var _follow:Boolean;
+		private var _spritemap:Spritemap;
 		
 		public function FriendBull() 
 		{
-			super(0, 0, Image.createRect(8, 8, 0x00FF00));
+			super(0, 0);
 			layer = 5;
-			setHitbox(8, 8);
+			setHitbox(8, 8, 4, 4);
 			type = "friend";
+			
+			_spritemap = new Spritemap(Resources.IMG_FRIENDBULL, 16, 16);
+			_spritemap.add("sit", [0]);
+			_spritemap.add("walk", [1, 2], 0.1);
+			_spritemap.add("hit", [3]);
+			_spritemap.centerOrigin();
+			graphic = _spritemap;
 		}
 		
 		override public function added():void
@@ -88,6 +97,15 @@ package
 			var e:Entity = FP.world.create(ParticleTrail);
 			e.x = centerX;
 			e.y = centerY;
+			
+			if (!_follow && speed.x == 0)
+				_spritemap.play("sit");
+			else if (!_follow)
+				_spritemap.play("hit");
+			else
+				_spritemap.play("walk");
+				
+			_spritemap.flipped = speed.x < 0;
 			
 			super.update();
 		}

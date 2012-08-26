@@ -15,7 +15,7 @@ package
 		
 		public function FriendSpirit() 
 		{
-			super(0, 0, Image.createRect(2, 2, 0x00FF00));
+			super(0, 0, Image.createRect(2, 2, 0x55FF55));
 			layer = -5 + 10 * FP.random;
 			setHitbox(2, 2);
 			collideWithSolids = false;
@@ -77,12 +77,6 @@ package
 			
 			if (FP.distance(x, y, Global.player.x, Global.player.y) > FP.width)
 				FP.world.recycle(this);
-				
-			/*
-			var e:Entity = FP.world.create(ParticleTrail);
-			e.x = centerX;
-			e.y = centerY;
-			*/
 			
 			super.update();
 		}
